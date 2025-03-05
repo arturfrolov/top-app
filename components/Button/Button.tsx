@@ -1,4 +1,4 @@
-import {type ButtonProps} from '@/components/Button/Button.props';
+import {ButtonProps} from '@/components/Button/Button.props';
 import styles from './Button.module.css';
 import cn from 'classnames';
 import ArrowIcon from './arrow.svg';
