@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {Noto_Sans} from 'next/font/google';
 import './globals.css';
+import {Footer, Header, Sidebar} from '@/layouts';
 
 
 const notoSans = Noto_Sans({
@@ -19,9 +20,16 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
-    <body className={`${notoSans.variable}`}>
-    {children}
-    </body>
+      <body className={`${notoSans.variable}`}>
+        <Header/>
+        <div>
+          <Sidebar/>
+          <div>
+            {children}
+          </div>
+        </div>
+        <Footer/>
+      </body>
     </html>
   );
 }
