@@ -1,6 +1,8 @@
 import type {Metadata} from 'next';
+import React from 'react';
 import {Noto_Sans} from 'next/font/google';
 import './globals.css';
+import styles from './layout.module.css';
 import {Footer, Header, Sidebar} from '@/layouts';
 
 
@@ -21,14 +23,15 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
   return (
     <html lang="en">
       <body className={`${notoSans.variable}`}>
-        <Header/>
-        <div>
-          <Sidebar/>
-          <div>
+        <div className={styles.wrapper}>
+          <Header className={styles.header}/>
+          <Sidebar className={styles.sidebar}/>
+          <main className={styles.main}>
             {children}
-          </div>
+          </main>
+          <Footer className={styles.footer}/>
         </div>
-        <Footer/>
+
       </body>
     </html>
   );

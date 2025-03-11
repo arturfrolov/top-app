@@ -1,0 +1,35 @@
+.footer {
+    background-color: var(--primary);
+    padding: 25px 36px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px 40px;
+
+    @media( width >= 768px) {
+        grid-template-columns: 1fr auto auto;
+    }
+
+}
+
+.div {
+    @media( width <= 768px) {
+        text-align: center;
+    }
+
+}
+
+.a {
+    text-align: center;
+    transition: var(--transition);
+
+    &:hover {
+        @media( width >= 768px) {
+            color: var(--grey-light);
+        }
+    }
+
+}
