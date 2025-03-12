@@ -1,4 +1,4 @@
-import type {Metadata} from 'next';
+import {Metadata} from 'next';
 import React from 'react';
 import {Noto_Sans} from 'next/font/google';
 import './globals.css';

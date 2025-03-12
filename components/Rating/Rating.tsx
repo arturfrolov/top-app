@@ -1,3 +1,5 @@
+'use client';
+
 import {RatingProps} from './Rating.props';
 import styles from './Rating.module.css';
 import cn from 'classnames';
