@@ -4,6 +4,7 @@ import {Noto_Sans} from 'next/font/google';
 import './globals.css';
 import styles from './layout.module.css';
 import {Footer, Header, Sidebar} from '@/layouts';
+import Menu from '@/components/Menu/Menu';
 
 
 const notoSans = Noto_Sans({
@@ -25,13 +26,14 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
       <body className={`${notoSans.variable}`}>
         <div className={styles.wrapper}>
           <Header className={styles.header}/>
-          <Sidebar className={styles.sidebar}/>
+          <Sidebar className={styles.sidebar}>
+            <Menu/>
+          </Sidebar>
           <main className={styles.main}>
             {children}
           </main>
           <Footer className={styles.footer}/>
         </div>
-
       </body>
     </html>
   );

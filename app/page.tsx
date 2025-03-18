@@ -3,7 +3,6 @@
 // import Image from 'next/image';
 // import {useState} from 'react';
 import {Button, Htag, P, Tag} from '@/components';
-import Menu from '@/components/Menu/Menu';
 
 
 
@@ -26,7 +25,7 @@ export default async function Home() {
       <Tag href={'#'} color={'primary'}>primary</Tag>
       {/*<Rating rating={rating} isEditable={true} setRating={setRating}></Rating>*/}
 
-      <Menu/>
+
     </>
   );
 }
