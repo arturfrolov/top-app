@@ -65,15 +65,15 @@ export default async function Menu() {
 
 	const buildSecondLevel = (menu: MenuItem[], firstLevelMenuItem: FirstLevelMenuItem) => {
 		return (
-			<div>
+			<div className={styles.secondLevelBlock}>
 				{menu.map(menuItem => (
 					<div key={menuItem._id.secondCategory}>
 						<div className={styles.secondLevel}>
 							{menuItem._id.secondCategory}
 						</div>
 
-						<div className={cn(styles.secondLevelBlock, {
-							[styles.secondLevelBlockOpened]: menuItem.isOpened,
+						<div className={cn(styles.thirdLevelBlock, {
+							[styles.thirdLevelBlockOpened]: menuItem.isOpened,
 						})}>
 							{buildThirdLevel(menuItem.pages, firstLevelMenuItem.route)}
 						</div>
@@ -90,7 +90,7 @@ export default async function Menu() {
 					href={`/${route}/${page.alias}`}
 					key={page._id}
 					className={cn(styles.thirdLevel, {
-						[styles.thirdLevelActive]: route === route,
+						[styles.thirdLevelActive]: false,
 					})}
 				>
 					{page.category}
@@ -103,14 +103,6 @@ export default async function Menu() {
 		const menu = await getMenu(firstCategory);
 
 		return (
-			// <ul>
-			// 	{menu.map(item => (
-			// 		<li key={item._id.secondCategory}>
-			// 			<span>{item._id.secondCategory}</span>
-			// 		</li>
-			// 	))}
-			// </ul>
-
 			<div className={styles.menu}>
 				{buildFirstLevel(menu)}
 			</div>
