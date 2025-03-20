@@ -5,3 +5,23 @@
 .firstLevelActive {
     color: red;
 }
+
+.secondLevel {
+    color: purple;
+}
+
+.secondLevelBlock {
+    color: blue;
+}
+
+.secondLevelBlockOpened {
+    color: cyan;
+}
+
+.thirdLevel {
+    color: orange;
+}
+
+.thirdLevelActive {
+    color: darkgoldenrod;
+}
