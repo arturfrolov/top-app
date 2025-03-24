@@ -25,7 +25,6 @@ export default async function Home() {
       <Tag href={'#'} color={'primary'}>primary</Tag>
       {/*<Rating rating={rating} isEditable={true} setRating={setRating}></Rating>*/}
 
-
     </>
   );
 }

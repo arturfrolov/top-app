@@ -46,7 +46,12 @@
 
 
 .thirdLevelBlock {
+    display: none;
     margin-bottom: 20px;
+}
+
+.thirdLevelBlockOpened {
+    display: block;
 }
 
 .thirdLevel {

@@ -3,6 +3,7 @@ import {getProduct} from '@/api/product';
 import {notFound} from 'next/navigation';
 import {getPage} from '@/api/page';
 import {getMenu} from '@/api/menu';
+import {TopPageModel} from '@/interfaces/page.interface';
 
 
 type CourseProps = {
@@ -44,7 +45,16 @@ export async function generateStaticParams() {
 
 export default async function CoursePage({params}: CourseProps) {
 	const { alias } = await params;
-	const page = await getPage(alias); // Получаем страницу (без отображения карточек курсов).
+
+	let page: TopPageModel | null;
+
+	try {
+		page = await getPage(alias);
+	} catch (error) {
+		throw error;
+	}
+
+	// const page = await getPage(alias); // Получаем страницу (без отображения карточек курсов).
 
 	if (!page) {
 		notFound();
