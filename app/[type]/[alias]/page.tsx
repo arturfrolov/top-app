@@ -1,17 +1,21 @@
 import {Metadata} from 'next';
-import {getProduct} from '@/api/product';
 import {notFound} from 'next/navigation';
 import {getPage} from '@/api/page';
 import {getMenu} from '@/api/menu';
-import {TopPageModel} from '@/interfaces/page.interface';
+import {getProduct} from '@/api/product';
+import {firstLevelMenu} from '@/helpers/helpers';
 
 
 type CourseProps = {
-	params: { alias: string }
+	params: {
+		type: string;
+		alias: string
+	}
 }
 
 export async function generateMetadata({params}: CourseProps): Promise<Metadata> {
 	const { alias } = await params;
+
 	const page = await getPage(alias);
 
 	if (!page) {
@@ -28,33 +32,32 @@ export async function generateMetadata({params}: CourseProps): Promise<Metadata>
 }
 
 export async function generateStaticParams() {
-	try {
-		const menu = await getMenu(0);
+	const paths: { type: string; alias: string }[] = [];
 
-		return menu.flatMap(item =>
-			item.pages.map((page: { alias: string }) => ({
-				alias: page.alias,
-			}))
-		);
-
-	} catch (error) {
-		console.error('Error generating static params:', error);
-		return [];
+	for (const firstLevelItem of firstLevelMenu) {
+		const menu = await getMenu(firstLevelItem.id);
+		for (const menuItem of menu) {
+			for (const page of menuItem.pages) {
+				paths.push({
+					type: firstLevelItem.route,
+					alias: page.alias,
+				});
+			}
+		}
 	}
+
+	return paths;
 }
 
 export default async function CoursePage({params}: CourseProps) {
-	const { alias } = await params;
+	const { type, alias } = await params;
 
-	let page: TopPageModel | null;
-
-	try {
-		page = await getPage(alias);
-	} catch (error) {
-		throw error;
+	const firstLevelItem = firstLevelMenu.find(item => item.route === type);
+	if (!firstLevelItem) {
+		notFound();
 	}
 
-	// const page = await getPage(alias); // Получаем страницу (без отображения карточек курсов).
+	const page = await getPage(alias); // Получаем страницу (без отображения карточек курсов).
 
 	if (!page) {
 		notFound();
@@ -64,6 +67,7 @@ export default async function CoursePage({params}: CourseProps) {
 
 	return (
 		<div>
+			<h1>{page.title}</h1>
 			<ul>
 				{products.map(product => (
 					<li key={product._id}>

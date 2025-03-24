@@ -7,38 +7,8 @@ import cn from 'classnames';
 import {FirstLevelMenuItem, MenuItem, PageItem} from '@/interfaces/menu.interface';
 import {TopLevelCategory} from '@/interfaces/page.interface';
 import styles from './Menu.module.css';
-import CoursesIcon from './icons/courses.svg';
-import ServicesIcon from './icons/services.svg';
-import ProductsIcon from './icons/products.svg';
-import BooksIcon from './icons/books.svg';
+import {firstLevelMenu} from '@/helpers/helpers';
 
-
-const firstLevelMenu: FirstLevelMenuItem[] = [
-	{
-		route: 'courses',
-		name: 'Курсы',
-		icon: <CoursesIcon/>,
-		id: TopLevelCategory.Courses
-	},
-	{
-		route: 'services',
-		name: 'Сервисы',
-		icon: <ServicesIcon/>,
-		id: TopLevelCategory.Services
-	},
-	{
-		route: 'books',
-		name: 'Книги',
-		icon: <BooksIcon/>,
-		id: TopLevelCategory.Books
-	},
-	{
-		route: 'products',
-		name: 'Товары',
-		icon: <ProductsIcon/>,
-		id: TopLevelCategory.Products
-	},
-];
 
 export interface MenuProps {
 	menu: MenuItem[];
