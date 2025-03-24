@@ -2,8 +2,6 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getMenu } from '@/api/menu';
 import { firstLevelMenu } from '@/helpers/helpers';
-import { TopLevelCategory } from '@/interfaces/page.interface';
-import {MenuItem} from '@/interfaces/menu.interface';
 
 type TypePageProps = {
 	params: {
