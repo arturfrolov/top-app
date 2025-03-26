@@ -1,14 +1,14 @@
-// 'use client';
+'use client';
 
 // import Image from 'next/image';
-// import {useState} from 'react';
-import {Button, Htag, P, Tag} from '@/components';
+import {useState} from 'react';
+import {Button, Htag, P, Rating, Tag} from '@/components';
 
 
 
-export default async function Home() {
+export default function Home() {
 
-  // const [rating, setRating] = useState<number>(2);
+  const [rating, setRating] = useState<number>(2);
 
   return (
     <>
@@ -23,7 +23,7 @@ export default async function Home() {
       <Tag color={'ghost'}>Ghost</Tag>
       <Tag size={'m'} color={'red'}>Red</Tag>
       <Tag href={'#'} color={'primary'}>primary</Tag>
-      {/*<Rating rating={rating} isEditable={true} setRating={setRating}></Rating>*/}
+      <Rating rating={rating} isEditable={true} setRating={setRating}></Rating>
 
     </>
   );

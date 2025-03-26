@@ -6,12 +6,15 @@ import {getProduct} from '@/api/product';
 import {firstLevelMenu} from '@/helpers/helpers';
 
 
+type CourseParams = {
+	type: string;
+	alias: string;
+};
+
 type CourseProps = {
-	params: {
-		type: string;
-		alias: string
-	}
-}
+	params: Promise<CourseParams>;
+};
+
 
 export async function generateMetadata({params}: CourseProps): Promise<Metadata> {
 	const { alias } = await params;
@@ -59,7 +62,7 @@ export default async function CoursePage({params}: CourseProps) {
 
 	const page = await getPage(alias); // Получаем страницу (без отображения карточек курсов).
 
-	if (!page) {
+	if (!page || page.firstCategory !== firstLevelItem.id) {
 		notFound();
 	}
 

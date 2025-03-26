@@ -3,10 +3,12 @@ import { notFound } from 'next/navigation';
 import { getMenu } from '@/api/menu';
 import { firstLevelMenu } from '@/helpers/helpers';
 
+type TypePageParams = {
+	type: string
+};
+
 type TypePageProps = {
-	params: {
-		type: string
-	};
+	params: Promise<TypePageParams>;
 };
 
 
