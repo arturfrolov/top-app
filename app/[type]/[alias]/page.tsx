@@ -4,6 +4,7 @@ import {getPage} from '@/api/page';
 import {getMenu} from '@/api/menu';
 import {getProduct} from '@/api/product';
 import {firstLevelMenu} from '@/helpers/helpers';
+import {CoursePageComponent} from '@/page-components';
 
 
 type CourseParams = {
@@ -29,7 +30,7 @@ export async function generateMetadata({params}: CourseProps): Promise<Metadata>
 	}
 
 	return {
-		title: page.title,
+		title: page.metaTitle,
 		description: page.seoText || `Курсы по ${page.title}`
 	};
 }
@@ -69,16 +70,11 @@ export default async function CoursePage({params}: CourseProps) {
 	const products = await getProduct(page.category); // Получаем все курсы (карточки курсов) с этой старницы.
 
 	return (
-		<div>
-			<h1>{page.title}</h1>
-			<ul>
-				{products.map(product => (
-					<li key={product._id}>
-						<span>{product.title}</span>
-					</li>
-				))}
-			</ul>
-		</div>
+		<CoursePageComponent
+			page={page}
+			products={products}
+			firstCategory={firstLevelItem.id}
+		/>
 	);
 }
 
