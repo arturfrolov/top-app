@@ -12,15 +12,15 @@ export interface TopPageModel {
 	alias: string
 	title: string
 	category: string
-	seoText: string
+	seoText?: string
 	tagsTitle: string
 	metaTitle: string
 	metaDescription: string
 	firstCategory: TopLevelCategory
-	advantages: TopPageAdvantage[]
+	advantages?: TopPageAdvantage[]
 	createdAt: string
 	updatedAt: string
-	hh: HhData
+	hh?: HhData
 	qas: Qa[]
 	addresses?: string[]
 	categoryOn: string

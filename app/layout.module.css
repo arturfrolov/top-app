@@ -28,10 +28,6 @@
 
 .sidebar {
     grid-area: sidebar;
-
-    @media (width <= 767px) {
-        display: none;
-    }
 }
 
 .main {
