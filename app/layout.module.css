@@ -7,7 +7,7 @@
             ". sidebar main ."
             "footer footer footer footer";
     min-height: 100vh;
-    gap: 0 30px;
+    gap: 40px 30px;
 
     @media (width <= 767px) {
         grid-template-columns: minmax(320px, 1fr);
@@ -32,6 +32,9 @@
 
 .main {
     grid-area: main;
+    @media (width <= 767px) {
+        padding: 0 15px;
+    }
 }
 
 .footer {

@@ -1,5 +1,5 @@
 import {CoursePageComponentProps} from '@/page-components/CoursePageComponent/CoursePageComponent.props';
-import {HhData, Htag, Tag} from '@/components';
+import {Advantages, HhData, Htag, Tag} from '@/components';
 import styles from './CoursePageComponent.module.css';
 import {TopLevelCategory} from '@/interfaces/page.interface';
 
@@ -24,9 +24,18 @@ export const CoursePageComponent = ({firstCategory, page, products}: CoursePageC
 				</div>
 				<div className={styles.hhTitle}>
 					<Htag tag='h2'>Вакансии - {page.category}</Htag>
-					<Tag size='m' color='red'>hh.com</Tag>
+					<Tag size='m' color='red'>dou.ua</Tag>
 				</div>
-				{firstCategory === TopLevelCategory.Courses && <HhData {...page.hh} />}
+				{firstCategory === TopLevelCategory.Courses && page.hh && <HhData {...page.hh} />}
+				{page.advantages && page.advantages.length > 0 &&
+					<>
+						<Htag tag='h2'>Преимущества</Htag>
+						<Advantages advantages={page.advantages} />
+					</>
+				}
+				{page.seoText && <div className={styles.seo} dangerouslySetInnerHTML={{__html: page.seoText}}/>}
+				<Htag tag='h2'>Получаемые навыки</Htag>
+				{page.tags.map(tag => <Tag key={tag} color='primary'>{tag}</Tag> )}
 			</div>
 	);
 };
