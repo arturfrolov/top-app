@@ -1,0 +1,6 @@
+.title {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    place-items: baseline start;
+    gap: 20px;
+}
