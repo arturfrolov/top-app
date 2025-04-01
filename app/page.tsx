@@ -2,7 +2,7 @@
 
 // import Image from 'next/image';
 import {useState} from 'react';
-import {Button, Htag, P, Rating, Tag} from '@/components';
+import {Button, Htag, P, Rating, Tag, Input, Textarea} from '@/components';
 
 
 
@@ -24,6 +24,8 @@ export default function Home() {
       <Tag size={'m'} color={'red'}>Red</Tag>
       <Tag href={'#'} color={'primary'}>primary</Tag>
       <Rating rating={rating} isEditable={true} setRating={setRating}></Rating>
+      <Input placeholder='Тест'/>
+      <Textarea placeholder='textarea'/>
 
     </>
   );
