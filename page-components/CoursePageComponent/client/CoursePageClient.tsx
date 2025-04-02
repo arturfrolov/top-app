@@ -5,7 +5,7 @@ import {CoursePageClientProps} from './CoursePageClient.props';
 import {SortEnum} from '@/components/Sort/Sort.props';
 import {Sort} from '@/components/Sort/Sort';
 import {sortReducer, SortReducerState} from './sort.reducer';
-import {Htag, Tag} from '@/components';
+import {Htag, Product, Tag} from '@/components';
 import styles from './CoursePageClient.module.css';
 
 export default function CoursePageClient({ initialProducts, pageTitle }: CoursePageClientProps) {
@@ -37,9 +37,7 @@ export default function CoursePageClient({ initialProducts, pageTitle }: CourseP
 					{sortedProducts && sortedProducts.length > 0
 						? (<ul>
 								{sortedProducts.map(product => (
-									<li key={product._id}>
-										<span>{product.title}</span>
-									</li>
+									<Product product={product} key={product._id}/>
 								))}
 							</ul>)
 						: (<p>Продукты не найдены.</p>)
