@@ -1,17 +1,20 @@
-.p {
-    line-height: 24px;
-    margin: 0;
+.search {
+    position: relative;
+    width: 100%;
 }
 
-.s {
-    font-size: 14px;
+.input {
+    width: 100%;
 }
 
-.m {
-    font-size: 16px;
-}
-
-.l {
-    font-size: 18px;
-    line-height: 29px;
+.button {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
 }

@@ -3,6 +3,7 @@ import styles from './Sidebar.module.css';
 import cn from 'classnames';
 import Logo from '../logo.svg';
 import Link from 'next/link';
+import {Search} from '@/components';
 
 export const Sidebar = ({className, children, ...props}: SidebarProps) => {
 	return (
@@ -10,7 +11,7 @@ export const Sidebar = ({className, children, ...props}: SidebarProps) => {
 			<Link href='/'>
 				<Logo className={styles.logo}/>
 			</Link>
-			<div>Поиск</div>
+			<Search/>
 			{children}
 		</div>
 	);
