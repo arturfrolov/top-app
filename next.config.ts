@@ -3,6 +3,16 @@ import type { RuleSetRule } from 'webpack';
 
 
 const nextConfig: NextConfig = {
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'old-images.hb.ru-msk.vkcs.cloud',
+				pathname: '/uploads/**',
+			}
+		]
+	},
+
   /* config options here */
 	webpack(config) {
 
