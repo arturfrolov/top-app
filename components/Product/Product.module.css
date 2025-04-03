@@ -11,26 +11,82 @@
 .logo {
     grid-column: start / logoend;
     grid-row: 1 / span 2;
+
+    & img {
+        border-radius: 5px;
+    }
 }
 
 .title, .tags {
     grid-column: titlestart / middle;
 }
 
+.category {
+    margin-top: 8px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    align-self: end;
+}
+
 .price, .priceTitle {
     grid-column: pricestart / priceend;
+}
+
+.price, .credit {
+    font-size: 20px;
+    align-self: end;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.discount {
+    margin-left: 5px;
 }
 
 .credit, .creditTitle {
     grid-column: creditstart / creditend;
 }
 
+.credit {
+    & span {
+        font-size: 14px;
+    }
+}
+
 .rating, .rateTitle {
     grid-column: ratestart / end;
 }
 
+.priceTitle, .creditTitle, .rateTitle {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 19px;
+}
+
+.rating {
+    align-self: end;
+}
+
 .hr, .description, .actions {
     grid-column: start / end;
+}
+
+.description {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 15px;
+}
+
+.actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
 .features {
@@ -39,5 +95,28 @@
 
 .advBlock {
     grid-column: middle / end;
+    font-size: 16px;
+    line-height: 22px;
+
+    & :not(:last-child) {
+        margin-bottom: 20px;
+    }
+}
+
+.advatntages {
+    padding-left: 15px;
+    border-left: 3px solid var(--green);
+}
+
+.disadvantages {
+    padding-left: 15px;
+    border-left: 3px solid var(--red);
+}
+
+.advTitle {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
 }
 
