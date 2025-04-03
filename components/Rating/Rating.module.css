@@ -1,6 +1,5 @@
 .star svg {
     fill: #E2E2E2;
-    /*fill: white;*/
     margin-left: 5px;
 }
 
@@ -10,4 +9,8 @@
 
 .editable {
     cursor: pointer;
+}
+
+.firstStar svg {
+    margin-left: 0;
 }

@@ -23,6 +23,7 @@ export const Rating = ({isEditable = false, rating, setRating, ...props}: Rating
 					className={cn(styles.star, {
 						[styles.filled]: index < currentRating,
 						[styles.editable]: isEditable,
+						[styles.firstStar]: index === 0,
 					})}
 					onMouseEnter={() => changeDisplay(index + 1)}
 					onMouseLeave={() => changeDisplay(rating)}

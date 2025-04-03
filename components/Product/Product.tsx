@@ -37,7 +37,7 @@ export const Product = ({product, className, ...props}: ProductProps) => {
 			<div className={styles.rateTitle}>{product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</div>
 			<Divider className={styles.hr}/>
 			<div className={styles.description}>{product.description}</div>
-			<div className={styles.features}>
+			<div className={styles.feature}>
 				{product.characteristics.map((characteristic) => (
 					<div className={styles.characteristic} key={characteristic.name}>
 						<span className={styles.characteristicName}>{characteristic.name}</span>
@@ -60,7 +60,7 @@ export const Product = ({product, className, ...props}: ProductProps) => {
 					</div>
 				}
 			</div>
-			<Divider className={styles.hr}/>
+			<Divider className={cn(styles.hr, styles.hr2)}/>
 			<div className={styles.actions}>
 				<Button appearance='primary'>Узнать подробнее</Button>
 				<Button appearance='ghost' arrow='right'>Читать отзывы</Button>
