@@ -1,3 +1,6 @@
 import React from 'react';
+import {FieldError} from 'react-hook-form';
 
-export type InputProps = React.ComponentProps<'input'>;
+export interface InputProps extends React.ComponentProps<'input'> {
+	error?: FieldError;
+}

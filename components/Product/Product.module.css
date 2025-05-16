@@ -157,6 +157,10 @@
     padding: 0;
 }
 
+.rateTitle a {
+    color: var(--primary);
+}
+
 @media (width <= 1339px) {
     .product {
         grid-template-columns: 70px 30px auto 40px auto 40px 1fr;

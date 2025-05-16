@@ -1,3 +1,6 @@
 import React from 'react';
+import {FieldError} from 'react-hook-form';
 
-export type TextareaProps = React.ComponentProps<'textarea'>;
+export interface TextareaProps extends React.ComponentProps<'textarea'> {
+	error?: FieldError;
+}

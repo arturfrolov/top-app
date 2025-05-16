@@ -3,16 +3,27 @@
 import {ProductProps} from './Product.props';
 import styles from './Product.module.css';
 import cn from 'classnames';
-import {Button, Card, Divider, Rating, Review, Tag} from '@/components';
+import {Button, Card, Divider, Rating, Review, ReviewForm, Tag} from '@/components';
 import {declOfNum, priceUa} from '@/helpers/helpers';
 import Image from 'next/image';
-import {useState} from 'react';
+import {Fragment, useRef, useState} from 'react';
 
 export const Product = ({product, className, ...props}: ProductProps) => {
 	const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
+	const reviewRef = useRef<HTMLDivElement>(null);
+
+	const scrollToReview = () => {
+		setIsReviewOpened(true);
+		if (reviewRef.current) {
+			reviewRef.current.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start',
+			});
+		}
+	};
 
 	return (
-		<>
+		<div className={className} {...props}>
 			<Card className={styles.product}>
 				<div className={styles.logo}>
 					<Image
@@ -40,7 +51,9 @@ export const Product = ({product, className, ...props}: ProductProps) => {
 				</div>
 				<div className={styles.priceTitle}>цена</div>
 				<div className={styles.creditTitle}>в кредит</div>
-				<div className={styles.rateTitle}>{product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</div>
+				<div className={styles.rateTitle}>
+					<a href="#ref" onClick={scrollToReview}>{product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</a>
+				</div>
 				<Divider className={styles.hr}/>
 				<div className={styles.description}>{product.description}</div>
 				<div className={styles.feature}>
@@ -81,12 +94,16 @@ export const Product = ({product, className, ...props}: ProductProps) => {
 			<Card color='blue' className={cn(styles.reviews, {
 				[styles.opend]: isReviewOpened,
 				[styles.closed]: !isReviewOpened,
-			})}>
+			})} ref={reviewRef}>
 				{product.reviews.length > 0 && product.reviews.map((review) => (
-					<Review review={review} key={review._id}/>
+					<Fragment key={review._id}>
+						<Review review={review}/>
+						<Divider />
+					</Fragment>
 				))}
+				<ReviewForm productId={product._id}/>
 			</Card>
-		</>
+		</div>
 
 	);
 };
