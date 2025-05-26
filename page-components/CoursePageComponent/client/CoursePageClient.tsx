@@ -37,7 +37,7 @@ export default function CoursePageClient({ initialProducts, pageTitle }: CourseP
 					{sortedProducts && sortedProducts.length > 0
 						? (<ul>
 								{sortedProducts.map(product => (
-									<Product product={product} key={product._id}/>
+									<Product layout product={product} key={product._id}/>
 								))}
 							</ul>)
 						: (<p>Продукты не найдены.</p>)

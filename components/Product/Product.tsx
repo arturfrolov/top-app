@@ -6,9 +6,10 @@ import cn from 'classnames';
 import {Button, Card, Divider, Rating, Review, ReviewForm, Tag} from '@/components';
 import {declOfNum, priceUa} from '@/helpers/helpers';
 import Image from 'next/image';
-import {Fragment, useRef, useState} from 'react';
+import {ForwardedRef, forwardRef, Fragment, useRef, useState} from 'react';
+import {motion} from 'framer-motion';
 
-export const Product = ({product, className, ...props}: ProductProps) => {
+export const Product = motion(forwardRef(function Product({product, className, ...props}: ProductProps, ref: ForwardedRef<HTMLDivElement>) {
 	const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
 	const reviewRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +24,7 @@ export const Product = ({product, className, ...props}: ProductProps) => {
 	};
 
 	return (
-		<div className={className} {...props}>
+		<div className={className} {...props} ref={ref}>
 			<Card className={styles.product}>
 				<div className={styles.logo}>
 					<Image
@@ -104,7 +105,5 @@ export const Product = ({product, className, ...props}: ProductProps) => {
 				<ReviewForm productId={product._id}/>
 			</Card>
 		</div>
-
 	);
-};
-
+}));
