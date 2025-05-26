@@ -7,6 +7,7 @@ import {Footer, Header, Sidebar} from '@/layouts';
 import Menu from '@/components/Menu/Menu';
 import {TopLevelCategory} from '@/interfaces/page.interface';
 import {getMenu} from '@/api/menu';
+import {Up} from '@/components';
 
 
 const notoSans = Noto_Sans({
@@ -39,6 +40,7 @@ export default async function RootLayout({children}: Readonly<{ children: React.
             {children}
           </main>
           <Footer className={styles.footer}/>
+          <Up/>
         </div>
       </body>
     </html>
