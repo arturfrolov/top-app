@@ -13,17 +13,14 @@
         grid-template-columns: minmax(320px, 1fr);
         grid-template-areas:
             "header"
-            "main "
+            "main"
             "footer";
+        gap: 10px;
     }
 }
 
 .header {
     grid-area: header;
-
-    @media (width >= 768px) {
-        display: none;
-    }
 }
 
 .sidebar {
@@ -32,6 +29,7 @@
 
 .main {
     grid-area: main;
+
     @media (width <= 767px) {
         padding: 0 15px;
     }

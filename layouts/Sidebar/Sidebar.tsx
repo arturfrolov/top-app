@@ -4,15 +4,16 @@ import cn from 'classnames';
 import Logo from '../logo.svg';
 import Link from 'next/link';
 import {Search} from '@/components';
+import Menu from '@/components/Menu/Menu';
 
-export const Sidebar = ({className, children, ...props}: SidebarProps) => {
+export const Sidebar = ({className, menu, firstCategory, ...props}: SidebarProps) => {
 	return (
 		<div className={cn(className, styles.sidebar)} {...props}>
 			<Link href='/'>
 				<Logo className={styles.logo}/>
 			</Link>
 			<Search/>
-			{children}
+			<Menu menu={menu} firstCategory={firstCategory} />
 		</div>
 	);
 };

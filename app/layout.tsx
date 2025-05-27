@@ -32,10 +32,8 @@ export default async function RootLayout({children}: Readonly<{ children: React.
     <html lang="en">
       <body className={`${notoSans.variable}`}>
         <div className={styles.wrapper}>
-          <Header className={styles.header}/>
-          <Sidebar className={styles.sidebar}>
-            <Menu menu={menu} firstCategory={firstCategory} />
-          </Sidebar>
+          <Header className={styles.header} menu={menu} firstCategory={firstCategory}/>
+          <Sidebar className={styles.sidebar} menu={menu} firstCategory={firstCategory}/>
           <main className={styles.main}>
             {children}
           </main>

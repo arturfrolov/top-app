@@ -1,5 +1,8 @@
-import {DetailedHTMLProps, HTMLAttributes, ReactNode} from 'react';
+import {DetailedHTMLProps, HTMLAttributes} from 'react';
+import {TopLevelCategory} from '@/interfaces/page.interface';
+import {MenuItem} from '@/interfaces/menu.interface';
 
 export interface HeaderProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	children?: ReactNode;
+	menu: MenuItem[];
+	firstCategory: TopLevelCategory;
 }

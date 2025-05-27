@@ -3,7 +3,6 @@
     align-content: start;
     gap: 20px;
 
-
     @media (width <= 767px) {
         display: none;
     }
