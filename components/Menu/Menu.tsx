@@ -1,6 +1,6 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import {useEffect, useState, KeyboardEvent} from 'react';
 import {usePathname} from 'next/navigation';
 import Link from 'next/link';
 import cn from 'classnames';
@@ -71,6 +71,13 @@ export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
 		);
 	}
 
+	function toggleSecondLevelKey(key: KeyboardEvent, secondCategory: string) {
+		if (key.code === 'Enter' || key.code === 'Space') {
+			key.preventDefault();
+			toggleSecondLevel(secondCategory);
+		}
+	}
+
 	const buildFirstLevel = (menu: MenuItem[]) => {
 		return (
 			<>
@@ -100,6 +107,8 @@ export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
 				{menu.map(menuItem => (
 					<div key={menuItem._id.secondCategory}>
 						<div
+							tabIndex={0}
+							onKeyDown={(key: KeyboardEvent) => toggleSecondLevelKey(key, menuItem._id.secondCategory)}
 							className={styles.secondLevel}
 							onClick={() => toggleSecondLevel(menuItem._id.secondCategory)}
 						>
@@ -113,7 +122,7 @@ export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
 							animate={menuItem.isOpened ? 'visible' : 'hidden'}
 							className={cn(styles.thirdLevelBlock)}
 						>
-							{buildThirdLevel(menuItem.pages, firstLevelMenuItem.route)}
+							{buildThirdLevel(menuItem.pages, firstLevelMenuItem.route, menuItem.isOpened ?? false)}
 						</motion.div>
 					</div>
 				))}
@@ -121,12 +130,13 @@ export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
 		);
 	};
 
-	const buildThirdLevel = (pages: PageItem[], route: string ) => {
+	const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean ) => {
 		return (
 			pages.map(page => (
 				<motion.div key={page._id} variants={variantsChildren}>
 					<Link
 						href={`/${route}/${page.alias}`}
+						tabIndex={isOpened ? 0 : -1}
 						className={cn(styles.thirdLevel, {
 							[styles.thirdLevelActive]: page.alias === aliasSegment,
 						})}

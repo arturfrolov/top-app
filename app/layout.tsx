@@ -4,7 +4,6 @@ import {Noto_Sans} from 'next/font/google';
 import './globals.css';
 import styles from './layout.module.css';
 import {Footer, Header, Sidebar} from '@/layouts';
-import Menu from '@/components/Menu/Menu';
 import {TopLevelCategory} from '@/interfaces/page.interface';
 import {getMenu} from '@/api/menu';
 import {Up} from '@/components';
@@ -32,9 +31,10 @@ export default async function RootLayout({children}: Readonly<{ children: React.
     <html lang="en">
       <body className={`${notoSans.variable}`}>
         <div className={styles.wrapper}>
+          <a className={styles.skipLink} href="#main-content">Сразу к содержанию</a>
           <Header className={styles.header} menu={menu} firstCategory={firstCategory}/>
           <Sidebar className={styles.sidebar} menu={menu} firstCategory={firstCategory}/>
-          <main className={styles.main}>
+          <main className={styles.main} id="main-content" tabIndex={0}>
             {children}
           </main>
           <Footer className={styles.footer}/>

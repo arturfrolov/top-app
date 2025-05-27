@@ -46,13 +46,7 @@
 
 
 .thirdLevelBlock {
-    /*display: none;*/
-    /*margin-bottom: 20px;*/
     overflow: hidden;
-}
-
-.thirdLevelBlockOpened {
-    /*display: block;*/
 }
 
 .thirdLevel {
@@ -61,6 +55,7 @@
     font-weight: 500;
     line-height: normal;
     color: var(--grey-dark);
+    outline-offset: -1px;
 }
 
 .thirdLevel:not(:last-child) {

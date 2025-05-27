@@ -33,16 +33,14 @@ export default function CoursePageClient({ initialProducts, pageTitle }: CourseP
 				<Sort sort={sort} setSort={setSort} />
 			</div>
 			<div>
-				<ul>
-					{sortedProducts && sortedProducts.length > 0
-						? (<ul>
-								{sortedProducts.map(product => (
-									<Product layout product={product} key={product._id}/>
-								))}
-							</ul>)
-						: (<p>Продукты не найдены.</p>)
-					}
-				</ul>
+				{sortedProducts && sortedProducts.length > 0
+					? (<>
+						{sortedProducts.map(product => (
+							<Product layout product={product} key={product._id}/>
+						))}
+					</>)
+					: (<p>Продукты не найдены.</p>)
+				}
 			</div>
 		</>
 	);

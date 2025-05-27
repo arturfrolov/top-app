@@ -29,6 +29,7 @@
 
 .main {
     grid-area: main;
+    outline: none;
 
     @media (width <= 767px) {
         padding: 0 15px;
@@ -37,4 +38,20 @@
 
 .footer {
     grid-area: footer;
+}
+
+.skipLink {
+    position: fixed;
+    left: -9999px;
+    top: 0;
+    padding: .5rem 1rem;
+    color: var(--white);
+    background-color: var(--primary);
+    border-radius: 4px;
+    z-index: 100;
+
+    &:focus {
+        left: 1rem;
+        top: 1rem;
+    }
 }
