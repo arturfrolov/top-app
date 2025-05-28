@@ -2,9 +2,13 @@
     position: relative;
 }
 
-.star svg {
-    fill: #E2E2E2;
-    margin-left: 5px;
+.star {
+    display: inline-block;
+
+    & svg {
+        fill: #E2E2E2;
+        margin-left: 5px;
+    }
 }
 
 .filled svg {

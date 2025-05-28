@@ -10,7 +10,7 @@ import {IReviewForm, IReviewSentResponse} from '@/components/ReviewForm/ReviewFo
 import {API} from '@/app/api';
 import {useState} from 'react';
 
-export const ReviewForm = ({ productId, className, ...props}: ReviewFormProps) => {
+export const ReviewForm = ({ productId, isOpened, className, ...props}: ReviewFormProps) => {
 	const {register, control, handleSubmit, formState: {errors}, reset} = useForm<IReviewForm>();
 	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 	const [error, setIsError] = useState<string>();
@@ -53,12 +53,14 @@ export const ReviewForm = ({ productId, className, ...props}: ReviewFormProps) =
 					placeholder='Имя'
 					{...register('name', {required: {value: true, message: 'Заполните имя'}})}
 					error={errors.name}
+					tabIndex={isOpened ? 0 : -1}
 				/>
 				<Input
 					className={styles.input}
 					placeholder='Заголовок отзыва'
 					{...register('title', {required: {value: true, message: 'Заполните заголовок отзыва'}})}
 					error={errors.title}
+					tabIndex={isOpened ? 0 : -1}
 				/>
 				<div className={styles.rating}>
 					<span>Оценка:</span>
@@ -75,6 +77,7 @@ export const ReviewForm = ({ productId, className, ...props}: ReviewFormProps) =
 								isEditable={true}
 								setRating={field.onChange}
 								error={errors.rating}
+								tabIndex={isOpened ? 0 : -1}
 							/>
 						)}
 					/>
@@ -84,9 +87,10 @@ export const ReviewForm = ({ productId, className, ...props}: ReviewFormProps) =
 					placeholder='Текст отзыва'
 					{...register('description', {required: {value: true, message: 'Заполните текст отзыва'}})}
 					error={errors.description}
+					tabIndex={isOpened ? 0 : -1}
 				/>
 				<div className={styles.submit}>
-					<Button appearance='primary'>
+					<Button appearance='primary' tabIndex={isOpened ? 0 : -1}>
 						Отправить
 					</Button>
 					<span className={styles.info}>* Перед публикацией отзыв пройдет предварительную модерацию и проверку</span>

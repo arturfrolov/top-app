@@ -28,11 +28,14 @@ const ProductInner = forwardRef(function Product({product, className, ...props}:
 
 	const scrollToReview = () => {
 		setIsReviewOpened(true);
+
 		if (reviewRef.current) {
 			reviewRef.current.scrollIntoView({
 				behavior: 'smooth',
 				block: 'start',
 			});
+
+			reviewRef.current.focus();
 		}
 	};
 
@@ -106,14 +109,14 @@ const ProductInner = forwardRef(function Product({product, className, ...props}:
 				</div>
 			</Card>
 			<motion.div animate={isReviewOpened ? 'visible' : 'hidden'} variants={variants} initial='hidden'>
-				<Card color='blue' className={styles.reviews} ref={reviewRef}>
+				<Card color='blue' className={styles.reviews} ref={reviewRef} tabIndex={isReviewOpened ? 0 : -1}>
 					{product.reviews.length > 0 && product.reviews.map((review) => (
 						<Fragment key={review._id}>
 							<Review review={review}/>
 							<Divider />
 						</Fragment>
 					))}
-					<ReviewForm productId={product._id}/>
+					<ReviewForm productId={product._id} isOpened={isReviewOpened}/>
 				</Card>
 			</motion.div>
 		</div>
