@@ -3,8 +3,18 @@
     align-items: center;
     gap: 40px;
 
-    & span {
+    & button {
         cursor: pointer;
+        border: none;
+        background: none;
+        font-family: var(--font-noto-sans), sans-serif;
+        font-size: 16px;
+        font-weight: normal;
+    }
+
+    & button.active {
+        color: var(--primary);
+        font-weight: bold;
     }
 }
 
@@ -12,10 +22,6 @@
     display: none;
 }
 
-.active {
-    color: var(--primary);
-    font-weight: bold;
-}
 
 .active .sortIcon {
     display: inline-block;

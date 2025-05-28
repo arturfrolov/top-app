@@ -8,22 +8,24 @@ import cn from 'classnames';
 export const Sort = ({sort, setSort, className, ...props}: SortProps) => {
 	return (
 		<div className={cn(styles.sort, className)} {...props}>
-			<span
+			<button
+				id="rating"
 				onClick={() => setSort(SortEnum.Rating)}
 				className={cn({
 					[styles.active]: sort === SortEnum.Rating
 				})}
 			>
 				<SortIcon className={styles.sortIcon} /> По рейтингу
-			</span>
-			<span
+			</button>
+			<button
+				id="price"
 				onClick={() => setSort(SortEnum.Price)}
 				className={cn({
 					[styles.active]: sort === SortEnum.Price
 				})}
 			>
 				<SortIcon className={styles.sortIcon} /> По Цене
-			</span>
+			</button>
 		</div>
 	);
 };
