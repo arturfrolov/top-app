@@ -1,4 +1,4 @@
 import React from 'react';
 
-export type SearchProps = React.ComponentProps<'div'>
+export type SearchProps = React.ComponentProps<'form'>
 

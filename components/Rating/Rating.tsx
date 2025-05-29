@@ -45,6 +45,12 @@ export const Rating = forwardRef(({isEditable = false, rating, setRating, tabInd
 					tabIndex={computeFocus(rating, index)}
 					onKeyDown={handleKey}
 					ref={r => { ratingArrayRef.current.push(r); }}
+					role={isEditable ? 'slider' : ''}
+					aria-invalid={!!error}
+					aria-valuenow={rating}
+					aria-valuemax={5}
+					aria-label={isEditable ? 'Укажите рейтинг' : ('рейтинг' + rating)}
+					aria-valuemin={1}
 				>
 					<StarIcon/>
 				</span>

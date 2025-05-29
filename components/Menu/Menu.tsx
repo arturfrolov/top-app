@@ -149,9 +149,9 @@ export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
 	};
 
 	return (
-		<div className={styles.menu}>
+		<nav className={styles.menu} role="navigation">
 			{buildFirstLevel(menuState)}
-		</div>
+		</nav>
 	);
 
 }

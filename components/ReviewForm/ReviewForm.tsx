@@ -11,7 +11,7 @@ import {API} from '@/app/api';
 import {useState} from 'react';
 
 export const ReviewForm = ({ productId, isOpened, className, ...props}: ReviewFormProps) => {
-	const {register, control, handleSubmit, formState: {errors}, reset} = useForm<IReviewForm>();
+	const {register, control, handleSubmit, formState: {errors}, reset, clearErrors} = useForm<IReviewForm>();
 	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 	const [error, setIsError] = useState<string>();
 
@@ -54,6 +54,7 @@ export const ReviewForm = ({ productId, isOpened, className, ...props}: ReviewFo
 					{...register('name', {required: {value: true, message: 'Заполните имя'}})}
 					error={errors.name}
 					tabIndex={isOpened ? 0 : -1}
+					aria-invalid={!!errors.name}
 				/>
 				<Input
 					className={styles.input}
@@ -61,6 +62,7 @@ export const ReviewForm = ({ productId, isOpened, className, ...props}: ReviewFo
 					{...register('title', {required: {value: true, message: 'Заполните заголовок отзыва'}})}
 					error={errors.title}
 					tabIndex={isOpened ? 0 : -1}
+					aria-invalid={!!errors.title}
 				/>
 				<div className={styles.rating}>
 					<span>Оценка:</span>
@@ -88,29 +90,43 @@ export const ReviewForm = ({ productId, isOpened, className, ...props}: ReviewFo
 					{...register('description', {required: {value: true, message: 'Заполните текст отзыва'}})}
 					error={errors.description}
 					tabIndex={isOpened ? 0 : -1}
+					aria-label='Текст отзыва'
+					aria-invalid={!!errors.description}
 				/>
 				<div className={styles.submit}>
-					<Button appearance='primary' tabIndex={isOpened ? 0 : -1}>
+					<Button appearance='primary' tabIndex={isOpened ? 0 : -1} onClick={() => clearErrors()}>
 						Отправить
 					</Button>
 					<span className={styles.info}>* Перед публикацией отзыв пройдет предварительную модерацию и проверку</span>
 				</div>
 			</div>
 			{isSuccess &&
-				<div className={cn(styles.panel, styles.success)}>
+				<div className={cn(styles.panel, styles.success)} role='alert' aria-live='assertive' aria-atomic='true' tabIndex={isOpened ? 0 : -1}>
 					<div className={styles.successTitle}>
 						Ваш отзыв отправлен
 					</div>
 					<div>
 						Спасибо, ваш отзыв будет опубликован после проверки.
 					</div>
-					<CloseIcon className={styles.close} onClick={() => setIsSuccess(false)} />
+					<button
+						className={styles.close}
+						onClick={() => setIsSuccess(false)}
+						aria-label="Закрыть оповещение"
+					>
+						<CloseIcon/>
+					</button>
 				</div>
 			}
 			{error &&
-				<div className={cn(styles.panel, styles.error)}>
+				<div className={cn(styles.panel, styles.error)} role='alert' aria-live='assertive' aria-atomic='true' tabIndex={isOpened ? 0 : -1}>
 					{error}
-					<CloseIcon className={styles.close} onClick={() => setIsError(undefined)}/>
+					<button
+						className={styles.close}
+						onClick={() => setIsError(undefined)}
+						aria-label="Закрыть оповещение"
+					>
+						<CloseIcon/>
+					</button>
 				</div>
 			}
 		</form>

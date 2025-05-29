@@ -29,7 +29,7 @@ export default function CoursePageClient({ initialProducts, pageTitle }: CourseP
 		<>
 			<div className={styles.title}>
 				<Htag tag='h1'>{pageTitle}</Htag>
-				{sortedProducts && <Tag size='m' color='grey'>{sortedProducts.length}</Tag>}
+				{sortedProducts && <Tag size='m' color='grey' aria-label={sortedProducts.length + 'элементов'}>{sortedProducts.length}</Tag>}
 				<Sort sort={sort} setSort={setSort} />
 			</div>
 			<div>

@@ -34,7 +34,7 @@ export default async function RootLayout({children}: Readonly<{ children: React.
           <a className={styles.skipLink} href="#main-content">Сразу к содержанию</a>
           <Header className={styles.header} menu={menu} firstCategory={firstCategory}/>
           <Sidebar className={styles.sidebar} menu={menu} firstCategory={firstCategory}/>
-          <main className={styles.main} id="main-content" tabIndex={0}>
+          <main className={styles.main} id="main-content" tabIndex={0} role="main">
             {children}
           </main>
           <Footer className={styles.footer}/>
