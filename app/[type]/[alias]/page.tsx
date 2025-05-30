@@ -31,7 +31,12 @@ export async function generateMetadata({params}: CourseProps): Promise<Metadata>
 
 	return {
 		title: page.metaTitle,
-		description: page.seoText || `Курсы по ${page.title}`
+		description: page.metaDescription || `Курсы по ${page.title}`,
+		openGraph: {
+			title: page.metaTitle,
+			description: page.metaDescription,
+			type: 'article',
+		}
 	};
 }
 
