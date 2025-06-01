@@ -1,32 +1,105 @@
-'use client';
+import Image from 'next/image';
+import styles from './Home.module.css';
+import {Htag, P} from '@/components';
+import {Metadata} from 'next';
+import {getProduct} from '@/api/product';
+import Link from 'next/link';
 
-// import Image from 'next/image';
-import {useState} from 'react';
-import {Button, Htag, P, Rating, Tag, Input, Textarea} from '@/components';
+
+export const metadata: Metadata = {
+  title: 'Онлайн‑курсы | Главная',
+  description: 'Учитесь у практикующих преподавателей и улучшайте навыки уже сегодня',
+};
+
+export const revalidate = 86400;
 
 
+export default async function Home() {
 
-export default function Home() {
-
-  const [rating, setRating] = useState<number>(2);
+  const courses = await getProduct('Графический дизайн');
 
   return (
     <>
-      <Htag tag='h1'>Курсы по Photoshop</Htag>
-      <Button appearance={'primary'} className='wqeqw'>Узнать подробнее</Button>
-      <Button appearance={'ghost'} arrow={'right'}>Узнать подробнее</Button>
-      <P size={'l'}>Большой</P>
-      <P>Средний</P>
-      <P size={'s'}>Маленький</P>
-      <Tag size={'m'} color={'grey'}>Grey</Tag>
-      <Tag color={'green'}>Green</Tag>
-      <Tag color={'ghost'}>Ghost</Tag>
-      <Tag size={'m'} color={'red'}>Red</Tag>
-      <Tag href={'#'} color={'primary'}>primary</Tag>
-      <Rating rating={rating} isEditable={true} setRating={setRating}></Rating>
-      <Input placeholder='Тест'/>
-      <Textarea placeholder='textarea'/>
+      <section className={styles.hero}>
+        <div className={styles.heroInner}>
+          <Htag tag='h1'>Онлайн‑курсы</Htag>
+          <P size='l' className={styles.subtitle}>
+            Учитесь у практикующих преподавателей и улучшайте свои навыки уже сегодня.
+          </P>
+        </div>
+      </section>
 
+      <section className={styles.features}>
+        <Htag tag='h2'>Почему мы?</Htag>
+        <ul className={styles.featureGrid}>
+          <li>
+            <span className={styles.featureIcon}>🎓</span>
+            <P>
+              Только практические задания
+            </P>
+          </li>
+          <li>
+            <span className={styles.featureIcon}>💬</span>
+            <P>
+              Обратная связь от менторов
+            </P>
+          </li>
+          <li>
+            <span className={styles.featureIcon}>🗓️</span>
+            <P>
+              Гибкий график обучения
+            </P>
+          </li>
+          <li>
+            <span className={styles.featureIcon}>📜</span>
+            <P>
+              Сертификат после окончания
+            </P>
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.courses}>
+        <Htag tag='h2'>Популярные курсы</Htag>
+        <div className={styles.courseGrid}>
+          {courses.map((c) => (
+            <article key={c._id} className={styles.courseCard}>
+              <Image
+                src={c.image}
+                alt={c.title}
+                width={360}
+                height={240}
+                className={styles.courseImage}
+              />
+              <div className={styles.courseBody}>
+                <h3>{c.title}</h3>
+                <p>{c.description}</p>
+              </div>
+              <div className={styles.courseFooter}>
+                <span className={styles.price}>{c.price} ₴</span>
+
+                <Link href={'/courses/graphic-design'} className={styles.enrollButton}>
+                  Прочитать отзывы
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.testimonials}>
+        <h2>Отзывы студентов</h2>
+        <div className={styles.testimonialList}>
+          <blockquote>
+            «Занятия построены логично, много практики. Уже через месяц я оформлял первые заказы на фрилансе!»
+            <footer>— Анна, UI‑дизайнер</footer>
+          </blockquote>
+          <blockquote>
+            «Курс Retouch Master помог улучшить портфолио и получить работу в студии. Спасибо команде!»
+            <footer>— Олег, фотограф‑ретушёр</footer>
+          </blockquote>
+        </div>
+      </section>
     </>
   );
 }
