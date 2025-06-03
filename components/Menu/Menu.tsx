@@ -8,7 +8,7 @@ import {FirstLevelMenuItem, MenuItem, PageItem} from '@/interfaces/menu.interfac
 import {TopLevelCategory} from '@/interfaces/page.interface';
 import styles from './Menu.module.css';
 import {firstLevelMenu} from '@/helpers/helpers';
-import {motion} from 'framer-motion';
+import {AnimatePresence, motion} from 'framer-motion';
 
 
 export interface MenuProps {
@@ -16,22 +16,44 @@ export interface MenuProps {
 	firstCategory: TopLevelCategory;
 }
 
-export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
+export default function Menu({menu: serverMenu, firstCategory}: MenuProps) {
+
+	const [openedFirst, setOpenedFirst] = useState<TopLevelCategory | null>(firstCategory);
 
 	const [menuState, setMenuState] = useState<MenuItem[]>(
 		serverMenu.map(item => ({...item, isOpened: false}))
 	);
+
+	const firstVariants = {
+		open: {
+			height: 'auto',
+			opacity: 1,
+			transition: {
+				when: 'beforeChildren',
+				ease: 'easeInOut',
+			},
+		},
+		close: {
+			height: 0,
+			opacity: 0,
+			transition: {
+				when: 'afterChildren',
+				ease: 'easeInOut',
+				duration: 0.4,
+			},
+		}
+	};
 
 	const variants = {
 		visible: {
 			marginBottom: 20,
 			transition: {
 				when: 'beforeChildren',
-				staggerChildren: 0.1,
+				staggerChildren: 0.1
 			}
 		},
 		hidden: {
-			marginBottom: 0,
+			marginBottom: 0
 		}
 	};
 
@@ -39,11 +61,11 @@ export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
 		visible: {
 			opacity: 1,
 			height: 'auto',
-			marginBottom: 10,
+			marginBottom: 10
 		},
 		hidden: {
 			height: 0,
-			opacity: 0,
+			opacity: 0
 		}
 	};
 
@@ -58,6 +80,34 @@ export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
 			})
 		);
 	}, [aliasSegment]);
+
+	async function clickFirstLevel(item: FirstLevelMenuItem) {
+		// сворачиваем, если тот же
+		if (openedFirst === item.id) {
+			setOpenedFirst(null);
+			return;
+		}
+
+		setOpenedFirst(item.id);
+
+		if (item.id === firstCategory) {
+			setMenuState(
+				serverMenu.map(m => ({...m, isOpened: false}))
+			);
+			return;
+		}
+
+		try {
+			const res = await fetch(`/api/menu?id=${item.id}`);
+			const data = await res.json() as MenuItem[];
+
+			setMenuState(
+				data.map(m => ({...m, isOpened: false}))
+			);
+		} catch (e) {
+			console.error('Не удалось получить меню', e);
+		}
+	}
 
 	function toggleSecondLevel(secondCategory: string) {
 		setMenuState(oldMenu =>
@@ -83,18 +133,32 @@ export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
 			<>
 				{firstLevelMenu.map(firstLevelMenuItem => (
 					<div key={firstLevelMenuItem.route}>
-						<Link href={`/${firstLevelMenuItem.route}`}>
-							<div className={cn(styles.firstLevel, {
-								[styles.firstLevelActive]: firstLevelMenuItem.id === firstCategory,
-							})}>
-								{firstLevelMenuItem.icon}
-								<span>
-										{firstLevelMenuItem.name}
-								</span>
-							</div>
-						</Link>
-
-						{firstLevelMenuItem.id === firstCategory && buildSecondLevel(menu, firstLevelMenuItem)}
+						<button
+							className={cn(styles.firstLevel, {
+								[styles.firstLevelActive]: firstLevelMenuItem.id === openedFirst
+							})}
+							aria-expanded={firstLevelMenuItem.id === openedFirst}
+							onClick={() => clickFirstLevel(firstLevelMenuItem)}
+						>
+							{firstLevelMenuItem.icon}
+							<span>
+								{firstLevelMenuItem.name}
+							</span>
+						</button>
+						<AnimatePresence initial={false} mode="wait">
+							{firstLevelMenuItem.id === openedFirst && (
+								<motion.div
+									key={firstLevelMenuItem.id}
+									variants={firstVariants}
+									initial="close"
+									animate="open"
+									exit="close"
+									style={{ overflow: 'hidden' }}
+								>
+									{buildSecondLevel(menu, firstLevelMenuItem)}
+								</motion.div>
+							)}
+						</AnimatePresence>
 					</div>
 				))}
 			</>
@@ -130,7 +194,7 @@ export default function Menu({ menu: serverMenu, firstCategory }: MenuProps) {
 		);
 	};
 
-	const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean ) => {
+	const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean) => {
 		return (
 			pages.map(page => (
 				<motion.div key={page._id} variants={variantsChildren}>

@@ -9,8 +9,13 @@ const nextConfig: NextConfig = {
 				protocol: 'https',
 				hostname: 'old-images.hb.ru-msk.vkcs.cloud',
 				pathname: '/uploads/**',
-			}
-		]
+			},
+			{
+				protocol: 'https',
+				hostname: 'picsum.photos',
+				pathname: '/**'
+			},
+		],
 	},
 
   /* config options here */

@@ -3,15 +3,18 @@
 }
 
 .firstLevel {
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    gap: 24px;
+    display: flex;
     align-items: center;
+    gap: 24px;
+    width: 100%;
     color: var(--grey-dark);
     font-size: 18px;
     font-weight: 500;
     line-height: 18px;
     margin-bottom: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .firstLevelActive {

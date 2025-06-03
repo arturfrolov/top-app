@@ -11,7 +11,9 @@ export const metadata: Metadata = {
   description: 'Учитесь у практикующих преподавателей и улучшайте навыки уже сегодня',
 };
 
-export const revalidate = 86400;
+function placeholderImg(id: string) {
+  return `https://picsum.photos/seed/${id}/600/400`;
+}
 
 
 export default async function Home() {
@@ -65,7 +67,7 @@ export default async function Home() {
           {courses.map((c) => (
             <article key={c._id} className={styles.courseCard}>
               <Image
-                src={c.image}
+                src={placeholderImg(c._id)}
                 alt={c.title}
                 width={360}
                 height={240}
