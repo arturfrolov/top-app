@@ -6,14 +6,14 @@ import Link from 'next/link';
 import {Search} from '@/components';
 import Menu from '@/components/Menu/Menu';
 
-export const Sidebar = ({className, menu, firstCategory, ...props}: SidebarProps) => {
+export const Sidebar = ({className, allMenus, firstCategory, ...props}: SidebarProps) => {
 	return (
 		<div className={cn(className, styles.sidebar)} {...props}>
 			<Link href='/'>
 				<Logo className={styles.logo}/>
 			</Link>
 			<Search/>
-			<Menu menu={menu} firstCategory={firstCategory} />
+			<Menu allMenus={allMenus} firstCategory={firstCategory} />
 		</div>
 	);
 };

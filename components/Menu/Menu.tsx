@@ -12,16 +12,16 @@ import {AnimatePresence, motion} from 'framer-motion';
 
 
 export interface MenuProps {
-	menu: MenuItem[];
+	allMenus: Record<TopLevelCategory, MenuItem[]>;
 	firstCategory: TopLevelCategory;
 }
 
-export default function Menu({menu: serverMenu, firstCategory}: MenuProps) {
+export default function Menu({allMenus, firstCategory}: MenuProps) {
 
 	const [openedFirst, setOpenedFirst] = useState<TopLevelCategory | null>(firstCategory);
 
 	const [menuState, setMenuState] = useState<MenuItem[]>(
-		serverMenu.map(item => ({...item, isOpened: false}))
+		(allMenus[firstCategory] || []).map(item => ({...item, isOpened: false}))
 	);
 
 	const firstVariants = {
@@ -82,7 +82,7 @@ export default function Menu({menu: serverMenu, firstCategory}: MenuProps) {
 	}, [aliasSegment]);
 
 	async function clickFirstLevel(item: FirstLevelMenuItem) {
-		// сворачиваем, если тот же
+		// Если нажали на уже открытую категорию — просто сворачиваем
 		if (openedFirst === item.id) {
 			setOpenedFirst(null);
 			return;
@@ -90,23 +90,11 @@ export default function Menu({menu: serverMenu, firstCategory}: MenuProps) {
 
 		setOpenedFirst(item.id);
 
-		if (item.id === firstCategory) {
-			setMenuState(
-				serverMenu.map(m => ({...m, isOpened: false}))
-			);
-			return;
-		}
+		// Загружаем содержимое из allMenus[item.id]
+		const newBranch = allMenus[item.id] || [];
 
-		try {
-			const res = await fetch(`/api/menu?id=${item.id}`);
-			const data = await res.json() as MenuItem[];
-
-			setMenuState(
-				data.map(m => ({...m, isOpened: false}))
-			);
-		} catch (e) {
-			console.error('Не удалось получить меню', e);
-		}
+		// Сбрасываем открытые подпункты и ставим «исходное» состояние
+		setMenuState(newBranch.map(m => ({ ...m, isOpened: false })));
 	}
 
 	function toggleSecondLevel(secondCategory: string) {

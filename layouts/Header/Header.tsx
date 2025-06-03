@@ -11,7 +11,7 @@ import {Sidebar} from '@/layouts';
 import {useEffect, useState} from 'react';
 import { usePathname } from 'next/navigation';
 
-export const Header = ({className, menu, firstCategory, ...props}: HeaderProps) => {
+export const Header = ({className, allMenus, firstCategory, ...props}: HeaderProps) => {
 	const [isOpened, setIsOpened] = useState<boolean>(false);
 	const pathname  = usePathname();
 	const shouldReduceMotion    = useReducedMotion();
@@ -44,7 +44,7 @@ export const Header = ({className, menu, firstCategory, ...props}: HeaderProps) 
 				initial='closed'
 				animate={isOpened ? 'opened' : 'closed'}
 			>
-				<Sidebar className={styles.sidebar} menu={menu} firstCategory={firstCategory}/>
+				<Sidebar className={styles.sidebar} allMenus={allMenus} firstCategory={firstCategory}/>
 				<ButtonIcon className={styles.menuClose} icon={'close'} appearance={'white'} onClick={() => setIsOpened(false)}/>
 			</motion.div>
 		</header>

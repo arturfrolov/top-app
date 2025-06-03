@@ -7,6 +7,8 @@ import {Footer, Header, Sidebar} from '@/layouts';
 import {TopLevelCategory} from '@/interfaces/page.interface';
 import {getMenu} from '@/api/menu';
 import {Up} from '@/components';
+import {MenuItem} from '@/interfaces/menu.interface';
+import {firstLevelMenu} from '@/helpers/helpers';
 
 
 const notoSans = Noto_Sans({
@@ -25,15 +27,27 @@ export const metadata: Metadata = {
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
 
   const firstCategory = TopLevelCategory.Courses;
-  const menu = await getMenu(firstCategory);
+
+  const allMenus: Record<TopLevelCategory, MenuItem[]> = {} as Record<
+    TopLevelCategory,
+    MenuItem[]
+  >;
+
+  await Promise.all(
+    firstLevelMenu.map(async (item) => {
+      // item.id — это TopLevelCategory (число)
+      const menuData = await getMenu(item.id);
+      allMenus[item.id] = menuData;
+    })
+  );
 
   return (
     <html lang="en">
       <body className={`${notoSans.variable}`}>
         <div className={styles.wrapper}>
           <a className={styles.skipLink} href="#main-content">Сразу к содержанию</a>
-          <Header className={styles.header} menu={menu} firstCategory={firstCategory}/>
-          <Sidebar className={styles.sidebar} menu={menu} firstCategory={firstCategory}/>
+          <Header className={styles.header} allMenus={allMenus} firstCategory={firstCategory}/>
+          <Sidebar className={styles.sidebar} allMenus={allMenus} firstCategory={firstCategory}/>
           <main className={styles.main} id="main-content" tabIndex={0} role="main">
             {children}
           </main>
