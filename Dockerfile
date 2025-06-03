@@ -1,10 +1,15 @@
-FROM node:14-alpine
-WORKDIR /opt/app
-ADD package.json package.json
-RUN npm install
-ADD . .
-ENV NODE_ENV production
+# build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package.json .
+RUN npm ci
+COPY . .
 RUN npm run build
-RUN npm prune --production
-CMD ["npm", "start"]
+
+# run stage
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /opt/app .
+ENV NODE_ENV=production
 EXPOSE 3000
+CMD ["npm", "start"]

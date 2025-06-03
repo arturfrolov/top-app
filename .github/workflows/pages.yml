@@ -1,0 +1,24 @@
+name: Deploy Docs to Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  pages: write
+  id-token: write
+  contents: read
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm ci
+      - run: npm run export
+
+      - uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./out
+
+      - uses: actions/deploy-pages@v2
