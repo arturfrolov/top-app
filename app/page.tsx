@@ -64,7 +64,7 @@ export default async function Home() {
       <section className={styles.courses}>
         <Htag tag='h2'>Популярные курсы</Htag>
         <div className={styles.courseGrid}>
-          {courses.map((c) => (
+          {courses.map((c, index) => (
             <article key={c._id} className={styles.courseCard}>
               <Image
                 src={placeholderImg(c._id)}
@@ -72,6 +72,7 @@ export default async function Home() {
                 width={360}
                 height={240}
                 className={styles.courseImage}
+                priority={index === 0}
               />
               <div className={styles.courseBody}>
                 <h3>{c.title}</h3>

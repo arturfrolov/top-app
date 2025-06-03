@@ -17,6 +17,7 @@ export const Search = ({className, ...props}: SearchProps) => {
 	const goToSearch = () => {
 		if (search.trim()) {
 			router.push(`/search?q=${encodeURIComponent(search)}`);
+			setSearch('');
 		} else {
 			setSearch('');
 		}
@@ -29,7 +30,7 @@ export const Search = ({className, ...props}: SearchProps) => {
 	};
 
 	return (
-		<form className={cn(className, styles.search)} {...props} role='search'>
+		<form className={cn(className, styles.search)} {...props} role='search' onSubmit={(e) => e.preventDefault()}>
 			<Input
 				className={styles.input}
 				placeholder='Поиск...'
