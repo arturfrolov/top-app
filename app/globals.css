@@ -12,7 +12,6 @@
   --transition: all 0.3s ease-in-out;
 }
 
-
 html,
 body {
   overflow-x: hidden;
@@ -44,10 +43,4 @@ a {
   overflow: hidden;
   width: 0;
   height: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
