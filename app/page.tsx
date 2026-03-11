@@ -16,9 +16,15 @@ function placeholderImg(id: string) {
 }
 
 
+const FEATURED_CATEGORY = {
+  name: 'Графический дизайн',
+  route: 'courses',
+  alias: 'graphic-design',
+} as const;
+
 export default async function Home() {
 
-  const courses = await getProduct('Графический дизайн');
+  const courses = await getProduct(FEATURED_CATEGORY.name);
 
   return (
     <>
@@ -81,7 +87,7 @@ export default async function Home() {
               <div className={styles.courseFooter}>
                 <span className={styles.price}>{c.price} ₴</span>
 
-                <Link href={'/courses/graphic-design'} className={styles.enrollButton}>
+                <Link href={`/${FEATURED_CATEGORY.route}/${FEATURED_CATEGORY.alias}`} className={styles.enrollButton}>
                   Прочитать отзывы
                 </Link>
               </div>

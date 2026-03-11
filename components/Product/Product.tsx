@@ -6,7 +6,7 @@ import cn from 'classnames';
 import {Button, Card, Divider, Rating, Review, ReviewForm, Tag} from '@/components';
 import {declOfNum, priceUa} from '@/helpers/helpers';
 import Image from 'next/image';
-import {ForwardedRef, forwardRef, Fragment, useRef, useState} from 'react';
+import {ForwardedRef, forwardRef, Fragment, useEffect, useRef, useState} from 'react';
 import {motion} from 'framer-motion';
 
 const ProductInner = forwardRef(function Product({product, className, ...props}: ProductProps, ref: ForwardedRef<HTMLDivElement>) {
@@ -28,16 +28,17 @@ const ProductInner = forwardRef(function Product({product, className, ...props}:
 
 	const scrollToReview = () => {
 		setIsReviewOpened(true);
+	};
 
-		if (reviewRef.current) {
+	useEffect(() => {
+		if (isReviewOpened && reviewRef.current) {
 			reviewRef.current.scrollIntoView({
 				behavior: 'smooth',
 				block: 'start',
 			});
-
 			reviewRef.current.focus();
 		}
-	};
+	}, [isReviewOpened]);
 
 	return (
 		<div className={className} {...props} ref={ref}>
