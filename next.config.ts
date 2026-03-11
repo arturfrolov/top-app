@@ -3,6 +3,7 @@ import type { RuleSetRule } from 'webpack';
 
 
 const nextConfig: NextConfig = {
+	output: 'standalone',
 	images: {
 		remotePatterns: [
 			{
