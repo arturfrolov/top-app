@@ -17,10 +17,8 @@ export const Search = ({className, ...props}: SearchProps) => {
 	const goToSearch = () => {
 		if (search.trim()) {
 			router.push(`/search?q=${encodeURIComponent(search)}`);
-			setSearch('');
-		} else {
-			setSearch('');
 		}
+		setSearch('');
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
