@@ -7,6 +7,7 @@ export async function getPage(alias: string): Promise<TopPageModel | null> {
 		const response = await fetch(`${API.topPage.byAlias}/${encodeURIComponent(alias)}`);
 
 		if (!response.ok) {
+			console.error(`Failed to fetch page for alias "${alias}": HTTP ${response.status} ${response.statusText}`);
 			return null;
 		}
 
