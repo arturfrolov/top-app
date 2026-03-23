@@ -1,19 +1,15 @@
+import { unstable_cache } from 'next/cache';
+import { cache } from 'react';
 import {API} from '@/app/api';
 import {ProductModel} from '@/interfaces/product.interface';
 
-export async function getProduct(category: string): Promise<ProductModel[]> {
+const fetchProduct = async (category: string): Promise<ProductModel[]> => {
 	try {
 		const response = await fetch(API.product.find, {
 			method: 'POST',
-			body: JSON.stringify({
-				category: category,
-				limit: 10
-			}),
+			body: JSON.stringify({ category, limit: 10 }),
 			headers: new Headers({ 'Content-Type': 'application/json' }),
-			next: {
-				tags: ['products', `products-category-${category}`],
-				revalidate: 3600,
-			}
+			cache: 'no-store',
 		});
 
 		if (!response.ok) {
@@ -25,4 +21,12 @@ export async function getProduct(category: string): Promise<ProductModel[]> {
 		console.error('Ошибка при получении курсов:', error);
 		return [];
 	}
-}
+};
+
+const getCachedProduct = unstable_cache(
+	fetchProduct,
+	['products'],
+	{ tags: ['products'], revalidate: 60 },
+);
+
+export const getProduct = cache(getCachedProduct);

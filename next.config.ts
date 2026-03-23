@@ -5,6 +5,7 @@ import type { RuleSetRule } from 'webpack';
 const nextConfig: NextConfig = {
 	output: 'standalone',
 	images: {
+		minimumCacheTTL: 86400,
 		remotePatterns: [
 			{
 				protocol: 'https',

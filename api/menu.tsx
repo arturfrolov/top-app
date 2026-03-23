@@ -1,16 +1,15 @@
+import { unstable_cache } from 'next/cache';
+import { cache } from 'react';
 import {API} from '@/app/api';
 import {MenuItem} from '@/interfaces/menu.interface';
 
-export async function getMenu(firstCategory: number): Promise<MenuItem[]> {
+const fetchMenu = async (firstCategory: number): Promise<MenuItem[]> => {
 	try {
 		const response = await fetch(API.topPage.find, {
 			method: 'POST',
 			body: JSON.stringify({firstCategory}),
 			headers: new Headers({ 'Content-Type': 'application/json' }),
-			next: {
-				tags: ['menu', `menu-category-${firstCategory}`],
-				revalidate: 3600,
-			}
+			cache: 'no-store',
 		});
 
 		if (!response.ok) {
@@ -23,4 +22,12 @@ export async function getMenu(firstCategory: number): Promise<MenuItem[]> {
 		console.error(`Network error fetching menu for category ${firstCategory}:`, err);
 		return [];
 	}
-}
+};
+
+const getCachedMenu = unstable_cache(
+	fetchMenu,
+	['menu'],
+	{ tags: ['menu'], revalidate: 60 },
+);
+
+export const getMenu = cache(getCachedMenu);
