@@ -27,7 +27,7 @@ const fetchMenu = async (firstCategory: number): Promise<MenuItem[]> => {
 const getCachedMenu = unstable_cache(
 	fetchMenu,
 	['menu'],
-	{ tags: ['menu'], revalidate: 60 },
+	{ tags: ['menu'], revalidate: 3600 },
 );
 
 export const getMenu = cache(getCachedMenu);

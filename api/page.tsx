@@ -38,7 +38,7 @@ const fetchPage = async (alias: string): Promise<TopPageModel | null> => {
 const getCachedPage = unstable_cache(
 	fetchPage,
 	['page'],
-	{ tags: ['pages'], revalidate: 60 },
+	{ tags: ['pages'], revalidate: 3600 },
 );
 
 export const getPage = cache(getCachedPage);

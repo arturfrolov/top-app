@@ -26,7 +26,7 @@ const fetchProduct = async (category: string): Promise<ProductModel[]> => {
 const getCachedProduct = unstable_cache(
 	fetchProduct,
 	['products'],
-	{ tags: ['products'], revalidate: 60 },
+	{ tags: ['products'], revalidate: 3600 },
 );
 
 export const getProduct = cache(getCachedProduct);
