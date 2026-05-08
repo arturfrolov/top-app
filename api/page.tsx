@@ -1,12 +1,13 @@
 import { unstable_cache } from 'next/cache';
 import { cache } from 'react';
 import {API} from '@/app/api';
+import {fetchWithTimeout} from '@/api/fetch-with-timeout';
 import {TopPageModel} from '@/interfaces/page.interface';
 import sanitizeHtml from 'sanitize-html';
 
 const fetchPage = async (alias: string): Promise<TopPageModel | null> => {
 	try {
-		const response = await fetch(
+		const response = await fetchWithTimeout(
 			`${API.topPage.byAlias}/${encodeURIComponent(alias)}`,
 			{ cache: 'no-store' },
 		);

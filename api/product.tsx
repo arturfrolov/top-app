@@ -1,11 +1,12 @@
 import { unstable_cache } from 'next/cache';
 import { cache } from 'react';
 import {API} from '@/app/api';
+import {fetchWithTimeout} from '@/api/fetch-with-timeout';
 import {ProductModel} from '@/interfaces/product.interface';
 
 const fetchProduct = async (category: string): Promise<ProductModel[]> => {
 	try {
-		const response = await fetch(API.product.find, {
+		const response = await fetchWithTimeout(API.product.find, {
 			method: 'POST',
 			body: JSON.stringify({ category, limit: 10 }),
 			headers: new Headers({ 'Content-Type': 'application/json' }),

@@ -18,7 +18,15 @@ type CourseProps = {
 
 
 export async function generateMetadata({params}: CourseProps): Promise<Metadata> {
-	const { alias } = await params;
+	const { type, alias } = await params;
+
+	const firstLevelItem = firstLevelMenu.find(item => item.route === type);
+	if (!firstLevelItem) {
+		return {
+			title: 'Страница не найдена',
+			description: 'Запрашиваемая страница не существует'
+		};
+	}
 
 	const page = await getPage(alias);
 
@@ -82,4 +90,3 @@ export default async function CoursePage({params}: CourseProps) {
 		/>
 	);
 }
-

@@ -1,11 +1,12 @@
 import { unstable_cache } from 'next/cache';
 import { cache } from 'react';
 import {API} from '@/app/api';
+import {fetchWithTimeout} from '@/api/fetch-with-timeout';
 import {MenuItem} from '@/interfaces/menu.interface';
 
 const fetchMenu = async (firstCategory: number): Promise<MenuItem[]> => {
 	try {
-		const response = await fetch(API.topPage.find, {
+		const response = await fetchWithTimeout(API.topPage.find, {
 			method: 'POST',
 			body: JSON.stringify({firstCategory}),
 			headers: new Headers({ 'Content-Type': 'application/json' }),
