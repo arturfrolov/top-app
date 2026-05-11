@@ -4,6 +4,7 @@ import {getPage} from '@/api/page';
 import {getMenu} from '@/api/menu';
 import {getProduct} from '@/api/product';
 import {firstLevelMenu} from '@/helpers/helpers';
+import {isLikelyPageAlias} from '@/helpers/route-guards';
 import {CoursePageComponent} from '@/page-components';
 
 
@@ -21,7 +22,7 @@ export async function generateMetadata({params}: CourseProps): Promise<Metadata>
 	const { type, alias } = await params;
 
 	const firstLevelItem = firstLevelMenu.find(item => item.route === type);
-	if (!firstLevelItem) {
+	if (!firstLevelItem || !isLikelyPageAlias(alias)) {
 		return {
 			title: 'Страница не найдена',
 			description: 'Запрашиваемая страница не существует'
@@ -70,7 +71,7 @@ export default async function CoursePage({params}: CourseProps) {
 	const { type, alias } = await params;
 
 	const firstLevelItem = firstLevelMenu.find(item => item.route === type);
-	if (!firstLevelItem) {
+	if (!firstLevelItem || !isLikelyPageAlias(alias)) {
 		notFound();
 	}
 

@@ -1,20 +1,21 @@
 import {NextResponse, type NextRequest} from 'next/server';
+import {isFirstLevelRoute, isLikelyPageAlias} from '@/helpers/route-guards';
 
 const allowedTopLevelPaths = new Set([
 	'',
 	'api',
-	'books',
-	'courses',
 	'favicon.ico',
-	'products',
 	'search',
-	'services',
 ]);
 
 export function middleware(request: NextRequest) {
-	const firstSegment = request.nextUrl.pathname.split('/')[1] ?? '';
+	const [, firstSegment = '', secondSegment] = request.nextUrl.pathname.split('/');
 
 	if (firstSegment.startsWith('_next') || allowedTopLevelPaths.has(firstSegment)) {
+		return NextResponse.next();
+	}
+
+	if (isFirstLevelRoute(firstSegment) && secondSegment && isLikelyPageAlias(secondSegment)) {
 		return NextResponse.next();
 	}
 
