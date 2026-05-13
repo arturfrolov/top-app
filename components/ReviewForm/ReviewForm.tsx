@@ -6,7 +6,7 @@ import cn from 'classnames';
 import {Button, Input, Rating, Textarea} from '@/components';
 import CloseIcon from './close.svg';
 import {useForm, Controller} from 'react-hook-form';
-import {IReviewForm, IReviewSentResponse} from '@/components/ReviewForm/ReviewForm.interface';
+import {IReviewForm} from '@/components/ReviewForm/ReviewForm.interface';
 import {API} from '@/app/api';
 import {useState} from 'react';
 
@@ -16,27 +16,27 @@ export const ReviewForm = ({ productId, isOpened, className, ...props}: ReviewFo
 	const [error, setIsError] = useState<string>();
 
 	const onSubmit = async (data: IReviewForm) => {
-		const payload = {...data, productId};
+		const payload = {
+			...data,
+			rating: Number(data.rating),
+			productId: String(productId),
+		};
 
 		try {
-			const response = await fetch(API.review.createDemo, {
+			const response = await fetch(API.review.create, {
 				method: 'POST',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify(payload),
 			});
 
 			if (!response.ok) {
-				throw new Error(response.statusText ||`Ошибка при отправке данных ${response.status}`);
+				const message = await response.text();
+				throw new Error(message || response.statusText ||`Ошибка при отправке данных ${response.status}`);
 			}
 
-			const data = (await response.json()) as IReviewSentResponse;
-
-			if (data.message) {
-				setIsSuccess(true);
-				reset();
-			} else {
-				setIsError('Что-то пошло не так');
-			}
+			setIsSuccess(true);
+			setIsError(undefined);
+			reset();
 
 		} catch (error) {
 			if(error instanceof Error) {
@@ -132,4 +132,3 @@ export const ReviewForm = ({ productId, isOpened, className, ...props}: ReviewFo
 		</form>
 	);
 };
-
